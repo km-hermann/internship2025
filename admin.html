@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>admin</title>
+    <link rel="stylesheet" href="./css/admin.css" />
+    <link rel="stylesheet" href="./css/home.css" />
+  </head>
+  <body>
+    <header>
+      <div class="headerContainer">
+        <div class="headerTitle">
+          <img src="./img/logo2.png" alt="" />
+          <a id="logo" class="nav-link" href="home.html">Admin Panel</a>
+        </div>
+        <nav class="nav">
+          <a class="nav-link" href="order.html">Orders</a>
+          <a class="nav-link" href="admin.html">Products</a>
+        </nav>
+      </div>
+    </header>
+       <div id="searchContainer" class="searchContainer">
+          <img src="./img/search.png" alt="" />
+          <input type="text" id="search" placeholder="Search..." />
+        </div>
+      <div class="buttonContainer">
+        <button class="addBtn" onclick="openFormPopup()">Add Product</button>
+        </div>
+      <div id="productList" class="productList">
+
+      </div>
+
+      <div id="formPopup" class="formPopup">
+      <div id="formContent" class="formContent">
+        <span class="close" onclick="closeFormPopup()">&times;</span>
+        <h2 id="formTitle">Add New Product</h2>
+        <div class="formGroup">
+          <label for="">Name:</label>
+          <input type="text" id="nameInput">
+      </div>
+      <div class="formGroup">
+          <label for="">Description:</label>
+          <input type="text" id="descInput">
+      </div>
+      <div class="formGroup">
+          <label for="">Stock:</label>
+          <input type="number" id="stockInput">
+      </div>
+      <div class="formGroup">
+          <label for="">Price:</label>
+          <input type="number" id="priceInput">
+      </div>
+       <div class="formGroup">
+          <label for="">Image URL:</label>
+          <input type="text" id="urlInput">
+      </div>
+      <div class="">
+          <button class="btn-submit" onclick="saveProduct()">Save Product</button>
+
+      </div>
+      </div>
+      </div>
+     <div id="popup" class="popup">
+        <div id="popupContent" class="popupContent">
+            <span class="close" onclick="closePopUp()">&times;</span>
+            <img src="./img/validate4.png" alt="">
+            <p>Saved successfully </p>
+            <button class="okButton correct" onclick="closePopUp()">OK</button>
+        </div>
+      </div>
+       <div id="popup2" class="popup">
+        <div id="popup2Content" class="popupContent">
+            <span class="close" onclick="closePopUp2()">&times;</span>
+            <img src="./img/error.png" alt="">
+            <p>Please fill in all fields!! </p>
+            <button class="okButton error" onclick="closePopUp2()">OK</button>
+        </div>
+      </div>
+
+    <script src="./js/admin.js"></script>
+  </body>
+</html>

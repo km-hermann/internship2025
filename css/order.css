@@ -1,0 +1,146 @@
+.orderContainer {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.orderItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border: 1px solid #f2eae4;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+    animation: slideRight 1s ease-in-out;
+}
+
+@keyframes slideRight {
+    from {
+        transform: translateX(-10%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.orderItem:hover {
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
+    transform: translateX(10px);
+}
+
+.itemImage {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-right: 16px;
+}
+
+.itemInfo {
+    display: flex;
+    align-items: center;
+    flex: 2;
+}
+
+.itemDetails {
+    display: flex;
+    flex-direction: column;
+}
+
+.itemName {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ff7043;
+}
+
+.itemDetail {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.itemPrice {
+    padding: 8px 14px;
+    font-size: 1.1rem;
+    color: #4caf50;
+    text-align: right;
+    margin-right: 12px;
+    width: 80px;
+    font-weight: bold;
+}
+
+.statusButton {
+    padding: 2px 2px;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+}
+
+.statusButton img {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    display: inline-block;
+  animation: spin 2.5s infinite linear;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.pending {
+    background-color: transparent;
+    width: 60px;
+    height: 60px;
+}
+
+.pending::after {
+    content: "pending";
+    position: absolute; left: 50%;
+    transform: translateX(-50%);
+    bottom: 70%;
+    background-color: #2a92ee;
+    color: white;
+    padding: 3px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s, bottom 0.5s;
+    z-index: 10;
+}
+
+.pending:hover::after {
+    opacity: 1;
+    visibility: visible;
+    bottom: 100%;
+}
+
+.cooking {
+    background-color: #2e7d32;
+}
+
+.delivered {
+    background-color: #29b6f6;
+}
+
+.summary {
+    margin-top: 40px;
+    margin-bottom: 50px;
+    font-size: 1.1rem;
+    border-top: 2px solid #dedddd;
+    padding-top: 20px;
+    text-align: center;
+    color: #757474;
+}

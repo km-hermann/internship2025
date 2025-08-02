@@ -1,0 +1,343 @@
+.productList {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+#searchContainer {
+  margin: 20px 0 20px;
+}
+
+.buttonContainer {
+  display: flex;
+  margin-top: 50px;
+  padding-top: 20px;
+  justify-content: center;
+  border-top: 2px solid #ababab;
+}
+
+.addBtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  width: 150px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.addBtn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.productItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border: 1px solid #f2eae4;
+  border-radius: 16px;
+  padding: 16px;
+  max-width: 1100px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, border 0.3s ease;
+  animation: slideDown 1.2s ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.productItem:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transform: translateX(10px);
+  border: 1.5px solid #ffa48c;
+}
+
+.itemImage {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-right: 20px;
+  transition: transform 0.3s ease;
+}
+
+.itemImage:hover {
+  transform: scale(1.2);
+}
+
+.productInfo {
+  display: flex;
+  align-items: center;
+  flex: 2;
+  margin-right: 10px;
+}
+
+.productName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ff7043;
+}
+
+.productDetails {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.state {
+  color: #464545;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.btn {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-edit {
+  background-color: #29b6f6;
+  color: white;
+  transition: transform 0.3s ease, background-color 0.5s ease;
+}
+
+.btn-edit:hover {
+  transform: scale(1.07);
+  background-color: #2292c6;
+}
+
+.btn-delete {
+  background-color: #e53935;
+  color: white;
+  transition: transform 0.3s ease, background-color 0.5s ease;
+}
+
+.btn-delete:hover {
+  transform: scale(1.07);
+  background-color: #cf4644;
+}
+
+@keyframes zoomInPopup {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.1);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.formPopup {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.formContent {
+  background-color: #f8f0e3;
+  visibility: hidden;
+  padding: 20px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, visibility 0.4s;
+}
+
+.openFormPopup {
+  visibility: visible;
+  transform: translate(-50%, -50%);
+  animation: zoomInPopup 0.5s cubic-bezier(0.4, 0.8, 0.2, 1) forwards;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 1.5rem;
+  color: #434242;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.close:hover {
+  color: #ababab;
+  transform: scale(1.1);
+}
+
+.formContent h2 {
+  margin-top: 0;
+  font-weight: 700;
+  color: #ff7043;
+}
+
+.formGroup {
+  margin-bottom: 12px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  transition: transform 0.3s ease, border 0.3s ease;
+}
+
+.formGroup input:hover {
+  transform: scale(1.02);
+  border: 1.5px solid #ffa48c;
+}
+
+.formGroup input:focus {
+  border: 1.5px solid #29b6f6;
+}
+
+.btn-submit {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-top: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-submit:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+@keyframes zoomInPopup2 {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.1);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popupContent {
+  display: flex;
+  visibility: hidden;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  background-color: #fefefe;
+  border: 1px solid #888;
+  width: auto;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s, visibility 0.4s;
+}
+
+.openPopup {
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+  animation: zoomInPopup2 0.5s cubic-bezier(0.4, 0.8, 0.2, 1) forwards;
+}
+
+.popup p {
+  color: #434242;
+  font-size: 1.4rem;
+  margin: 20px 50px;
+}
+
+.popup img {
+  border-radius: 50%;
+  width: 80px;
+  margin-top: -50px;
+  background-color: #fefefe;
+  border-top: 1px solid #f2eae4;
+}
+
+.popup .okButton {
+  color: white;
+  padding: 10px 20px;
+  width: 100px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.correct {
+  background-color: #4caf50;
+}
+
+.popup .correct:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.error {
+  background-color: #f73b3be2;
+}
+
+.popup .error:hover {
+  background-color: #f73b3b;
+  transform: scale(1.05);
+}
