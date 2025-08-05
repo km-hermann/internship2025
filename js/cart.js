@@ -30,7 +30,7 @@ function renderItems() {
             </div>
             <div class="itemPrice">${product.price}CFA</div>
             <div calss="buttons">
-            <button class="removeButton" onclick = "removeCartItem(${product.id})" ><img src ="../img/trash.png"</button>
+            <button class="removeButton" onclick = "removeCartItem(${product.id})" ><img src ="./img/trash.png"</button>
             </div>
     `;
     cartList.appendChild(div);
