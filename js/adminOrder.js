@@ -25,11 +25,11 @@ function renderItems() {
                 <div class="itemDetails">
                     <div class="itemName">${product.name}</div>
                     <div class="itemDetail">Qty: ${product.qty}</div>
+                    <div class="itemDetail">Table no: ${product.tableNumber}</div>
                 </div>
             </div>
             <div class="itemPrice">${product.price}CFA</div>
-            <button class="statusButton ${product.status}" > <img src="./img/${product.status}.png" alt="">
-</button>
+            <button class="statusButton ${product.status}" onclick = "changeProductStatus(${product.id})" >${product.status}</button>
     `;
     ordertList.appendChild(div);
   }
@@ -52,4 +52,22 @@ renderItems();
   } else {
     cartCount.style.display = "none";
   }
-})();
+})
+
+function changeProductStatus(productId) {
+    const index = products.findIndex((p) => p.id === productId);
+    products[index].status = getStatus(products[index].status);
+    localStorage.setItem("orders", JSON.stringify(products));
+    renderItems();
+}
+
+function getStatus(status) {
+    if (status === "pending"){
+        return "cooking"
+    } 
+    else if(status === "cooking") {
+        return "delivered"
+    } else {
+        return status
+    }
+}

@@ -72,7 +72,10 @@ function addToOrder() {
   let items = JSON.parse(cartItems);
   for (const item of items) {
     let status = { status: "pending" };
+    let tableNumber = {tableNumber: "T04"}
     Object.assign(item, status);
+    Object.assign(item, tableNumber);
+
   }
   const orderStorage = localStorage.getItem("orders");
   let orderItems;
