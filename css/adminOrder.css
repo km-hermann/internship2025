@@ -73,15 +73,33 @@
 }
 
 .pending {
-    background-color: #e49c43;
+    background-color: #3ba340;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.pending:hover {
+    background-color: #2e8f34;
+    transform: scale(1.05);
 }
 
 .cooking {
-    background-color: #2e7d32;
+    background-color: #ff9800;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.cooking:hover {
+    background-color: #e68900;
+    transform: scale(1.05);
 }
 
 .delivered {
     background-color: #29b6f6;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.delivered:hover {
+    background-color: #1e88e5;
+    transform: scale(1.05);
 }
 
 .summary {

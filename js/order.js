@@ -1,17 +1,33 @@
 let products = [];
-function setOrdersFromLocalStorage() {
-  const storageItems = localStorage.getItem(`orders`);
-  const orderSummary = document.getElementById("summary");
-  if (storageItems) {
-    products = JSON.parse(storageItems);
-    orderSummary.textContent = `Total items: ${products.length} `;
+// function setOrdersFromLocalStorage() {
+//   const storageItems = localStorage.getItem(`orders`);
+//   const orderSummary = document.getElementById("summary");
+//   if (storageItems) {
+//     products = JSON.parse(storageItems);
+//     orderSummary.textContent = `Total items: ${products.length} `;
 
-  } else {
+//   } else {
 
-    orderSummary.textContent = "No order placed!!";
-  }
+//     orderSummary.textContent = "No order placed!!";
+//   }
+// }
+// setOrdersFromLocalStorage();
+
+function fetchDataFromDb() {
+  fetch("http://127.0.0.1:3000/orders/T04").then((response) => {
+    console.log(response);
+    if (!response.ok) {
+      alert("Network response was not ok");
+    }
+    return response.json();
+  }).then((data) => {
+    products = data.items;
+    renderItems();
+  }).catch((error) => {
+    alert("There has been a problem with your fetch operation:", error);
+  });
 }
-setOrdersFromLocalStorage();
+fetchDataFromDb();
 
 const ordertList = document.getElementById("orderContainer");
 function renderItems() {

@@ -147,11 +147,27 @@ let products = [
 
 // localStorage.setItem("products", JSON.stringify(products))
 
-function setLocalStorageItems() {
-  const items = localStorage.getItem("products");
-  products = JSON.parse(items) || [];
+function fetchDataFromDb() {
+  fetch("http://127.0.0.1:3000/products").then((response) => {
+    console.log(response);
+    if (!response.ok) {
+      alert("Network response was not ok");
+    }
+    return response.json();
+  }).then((data) => {
+    products = data;
+    renderFoods();
+  }).catch((error) => {
+    alert("There has been a problem with your fetch operation:", error);
+  });
 }
-setLocalStorageItems();
+fetchDataFromDb();
+
+// function setLocalStorageItems() {
+//   const items = localStorage.getItem("products");
+//   products = JSON.parse(items) || [];
+// }
+// setLocalStorageItems();
 
 const foodList = document.getElementById("foodList");
 const searchInput = document.getElementById("search");
@@ -188,7 +204,7 @@ function renderFoods(searchKey = "") {
             <div class="foodDescription">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi adipisci, magnam facilis fugiat quos deserunt distinctio nobis a est ducimus</div>
             <div class="stock">Stock:${product.stock}</div>
             <div class="price">${product.price}CFA</div>
-            <button class="addButton" onclick="addToCart(${product.id})">Add to cart</button>
+            <button class="addButton" onclick="addToCart('${product.id}')">Add to cart</button>
     `;
     foodList.appendChild(div);
   }

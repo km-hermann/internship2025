@@ -1,11 +1,30 @@
 let products = [];
 let editingId = null;
-function setItemsFromLocalStorage() {
-  const storageItems = localStorage.getItem("products");
-  products = JSON.parse(storageItems) || [];
-}
+// function setItemsFromLocalStorage() {
+//   const storageItems = localStorage.getItem("products");
+//   products = JSON.parse(storageItems) || [];
+// }
 
-setItemsFromLocalStorage();
+// setItemsFromLocalStorage();
+
+function fetchDataFromDb() {
+  fetch("http://127.0.0.1:3000/products")
+    .then((response) => {
+      console.log(response);
+      if (!response.ok) {
+        alert("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      products = data;
+      renderItems();
+    })
+    .catch((error) => {
+      alert("There has been a problem with your fetch operation:", error);
+    });
+}
+fetchDataFromDb();
 
 let productList = document.getElementById("productList");
 
@@ -41,7 +60,6 @@ function saveProduct() {
   const image = document.getElementById("urlInput").value.trim();
 
   const newProduct = {
-    id: Date.now(),
     name: name,
     description: description,
     price: parseFloat(price),
@@ -54,26 +72,58 @@ function saveProduct() {
     return;
   }
   if (editingId) {
-    const index = products.findIndex((p) => p.id === editingId);
-    products[index] = {
-      id: editingId,
-      name: name,
-      description: description,
-      price: parseFloat(price),
-      image: image,
-      stock: parseInt(stock),
-    };
-    editingId = null;
-    document.getElementById("formTitle").innerHTML = "Add New Product";
+    fetch(`http://127.0.0.1:3000/products/${editingId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProduct),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          alert(
+            "An error occured when updating the product!" + response.statusText
+          );
+          return;
+        }
+        return response.json();
+      })
+      .then((updatedProduct) => {
+        // console.log(updatedProduct);
+        const index = products.findIndex((p) => p.id === editingId.toString());
+        products[index] = updatedProduct;
+        renderItems();
+        editingId = null;
+        document.getElementById("formTitle").innerHTML = "Add New Product";
+        emptyForm();
+        openPopUp();
+        closeFormPopup();
+      })
+      .catch((error) => {
+        alert("There has been a problem with your fetch operation:", error);
+      });
   } else {
-    products.push(newProduct);
+    fetch(`http://127.0.0.1:3000/products`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProduct),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          alert(
+            "An error occured when adding the product!" + response.statusText
+          );
+          return;
+        }
+        products.push(newProduct);
+        renderItems();
+      })
+      .catch((error) => {
+        alert("There has been a problem with your fetch operation:", error);
+      });
   }
-  localStorage.setItem("products", JSON.stringify(products));
-  setItemsFromLocalStorage();
-  renderItems();
-  emptyForm();
-  openPopUp();
-  closeFormPopup();
 }
 
 function emptyForm() {
@@ -85,9 +135,22 @@ function emptyForm() {
 }
 
 function removeItem(id) {
-  products = products.filter((p) => p.id !== id);
-  localStorage.setItem("products", JSON.stringify(products));
-  renderItems();
+  fetch(`http://127.0.0.1:3000/products/${id}`, {
+    method: "DELETE",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        alert(
+          "An error occured when deleting the product!" + response.statusText
+        );
+        return;
+      }
+      products = products.filter((p) => p.id !== id);
+      renderItems();
+    })
+    .catch((error) => {
+      alert("There has been a problem with your fetch operation:", error);
+    });
 }
 
 function editProduct(id) {

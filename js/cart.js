@@ -60,7 +60,8 @@ renderItems();
 function removeCartItem(productId) {
   const storageItems = localStorage.getItem(`cart`);
   let items = JSON.parse(storageItems);
-  items = items.filter((item) => item.id !== productId);
+  items = items.filter((item) => item.id !== productId.toString());
+
   localStorage.setItem(`cart`, JSON.stringify(items));
   setItemsFromLocalStorage();
   renderItems();
@@ -73,23 +74,39 @@ function addToOrder() {
   for (const item of items) {
     let status = { status: "pending" };
     let tableNumber = {tableNumber: "T04"}
+    let orderId = {orderId: Math.floor(Math.random() * 1000000)};
+    Object.assign(item, orderId);
     Object.assign(item, status);
     Object.assign(item, tableNumber);
 
   }
-  const orderStorage = localStorage.getItem("orders");
-  let orderItems;
-  if (orderStorage) {
-    orderItems = JSON.parse(orderStorage);
-  } else {
-    orderItems = [];
-  }
-  const updatedItems = [...orderItems, ...items];
-  localStorage.setItem("orders", JSON.stringify(updatedItems));
-  localStorage.setItem("cart", "[]");
-  setItemsFromLocalStorage();
-  renderItems();
-  openPopUp2();
+  const orderPayLoad = {
+    id: "T04",
+    items: items,
+  };
+
+ fetch(`http://127.0.0.1:3000/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderPayLoad),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          alert(
+            "An error occured when adding the product!" + response.statusText
+          );
+          return;
+        }
+        localStorage.removeItem(`cart`);
+        products = [];
+        renderItems();
+        openPopUp2();
+      })
+      .catch((error) => {
+        alert("There has been a problem with your fetch operation:", error);
+      });
 }
 
 let popUp = document.getElementById("popup");
