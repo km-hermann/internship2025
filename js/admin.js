@@ -119,6 +119,9 @@ function saveProduct() {
         }
         products.push(newProduct);
         renderItems();
+        emptyForm();
+        closeFormPopup();
+        openPopUp();
       })
       .catch((error) => {
         alert("There has been a problem with your fetch operation:", error);

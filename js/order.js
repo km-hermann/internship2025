@@ -12,9 +12,21 @@ let products = [];
 //   }
 // }
 // setOrdersFromLocalStorage();
+function getTableNumber() {
+  let tableNumber = localStorage.getItem("tableNumber");
+  if (tableNumber) {
+    return tableNumber;
+  } else {
+    tableNumber = Math.floor(Math.random() * 10000);
+    localStorage.setItem("tableNumber", tableNumber);
+    return tableNumber;
+  }
+}
+
+const tableNumber = getTableNumber()
 
 function fetchDataFromDb() {
-  fetch("http://127.0.0.1:3000/orders/T04").then((response) => {
+  fetch("http://192.168.1.182:3000/orders/"+tableNumber).then((response) => {
     console.log(response);
     if (!response.ok) {
       alert("Network response was not ok");

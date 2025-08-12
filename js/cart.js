@@ -7,6 +7,20 @@ function setItemsFromLocalStorage() {
 }
 setItemsFromLocalStorage();
 
+function getTableNumber() {
+  let tableNumber = localStorage.getItem("tableNumber");
+  if (tableNumber) {
+    return tableNumber;
+  } else {
+    tableNumber = Math.floor(Math.random() * 10000);
+    localStorage.setItem("tableNumber", tableNumber);
+    return tableNumber;
+  }
+}
+
+const tableNumber = getTableNumber()
+
+
 const cartList = document.getElementById("cartContainer");
 const cartSummary = document.getElementById("summary");
 const cartCount = document.getElementById("cartCount");
@@ -73,40 +87,39 @@ function addToOrder() {
   let items = JSON.parse(cartItems);
   for (const item of items) {
     let status = { status: "pending" };
-    let tableNumber = {tableNumber: "T04"}
-    let orderId = {orderId: Math.floor(Math.random() * 1000000)};
+    let tableNum = { tableNumber: tableNumber };
+    let orderId = { orderId: Math.floor(Math.random() * 1000000) };
     Object.assign(item, orderId);
     Object.assign(item, status);
-    Object.assign(item, tableNumber);
-
+    Object.assign(item, tableNum);
   }
   const orderPayLoad = {
-    id: "T04",
+    id: tableNumber,
     items: items,
   };
 
- fetch(`http://127.0.0.1:3000/orders`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(orderPayLoad),
+  fetch(`http://192.168.1.182:3000/orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(orderPayLoad),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        alert(
+          "An error occured when adding the product!" + response.statusText
+        );
+        return;
+      }
+      localStorage.removeItem(`cart`);
+      products = [];
+      renderItems();
+      openPopUp2();
     })
-      .then((response) => {
-        if (!response.ok) {
-          alert(
-            "An error occured when adding the product!" + response.statusText
-          );
-          return;
-        }
-        localStorage.removeItem(`cart`);
-        products = [];
-        renderItems();
-        openPopUp2();
-      })
-      .catch((error) => {
-        alert("There has been a problem with your fetch operation:", error);
-      });
+    .catch((error) => {
+      alert("There has been a problem with your fetch operation:", error);
+    });
 }
 
 let popUp = document.getElementById("popup");

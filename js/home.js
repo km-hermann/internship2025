@@ -148,7 +148,7 @@ let products = [
 // localStorage.setItem("products", JSON.stringify(products))
 
 function fetchDataFromDb() {
-  fetch("http://127.0.0.1:3000/products").then((response) => {
+  fetch("http://192.168.1.182:3000/products").then((response) => {
     console.log(response);
     if (!response.ok) {
       alert("Network response was not ok");

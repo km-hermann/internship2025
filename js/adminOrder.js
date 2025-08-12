@@ -81,13 +81,11 @@ renderItems();
 });
 
 async function changeProductStatus(orderId) {
-  orderId = orderId;
-  console.log(orderId);
   try {
     console.log(products);
     // Find the order that contains the product with productId
     const order = products.find((order) =>
-      order.items.some((item) => (item.orderId = orderId))
+      order.items.some((item) => (item.orderId.toString() === orderId.toString()))
     );
     if (!order) {
       console.error("Order containing product not found");
@@ -96,7 +94,7 @@ async function changeProductStatus(orderId) {
 
     // Find the product inside the order's items
     const updatedItems = order.items.map((item) => {
-      if (item.orderId === orderId) {
+      if (item.orderId.toString() === orderId.toString()) {
         return {
           ...item,
           status: getStatus(item.status), // assuming getStatus toggles status

@@ -110,7 +110,7 @@
 .pending img {
   width: 50px;
   height: 50px;
-  animation: spin 2s linear infinite;
+  animation: spin 0.7s linear infinite;
 }
 
 .pending::after {
@@ -147,7 +147,7 @@
 }
 
 .cooking img {
-  animation: bounce 0.7s infinite ease-in-out;
+  animation: bounce 0.5s infinite ease-in-out;
 }
 
 @keyframes bounce {
